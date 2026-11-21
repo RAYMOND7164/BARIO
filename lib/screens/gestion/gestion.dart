@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/base_locale.dart';
 import '../../data/membre.dart';
+import '../../data/requetes.dart';
 import '../../theme/bario_theme.dart';
 import '../../widgets/etat_synchro.dart';
 import '../../widgets/icone_compteur.dart';
@@ -40,6 +41,17 @@ class EspaceGestion extends StatefulWidget {
 class _EspaceGestionState extends State<EspaceGestion> {
   int _index = 0;
 
+  /// Mode serveuses (réglé par le patron). Désactivé : pas de rubrique « Bar »,
+  /// le gérant prend lui-même les commandes depuis « Tables ».
+  bool _modeServeuses = true;
+
+  List<_Rubrique> get _visibles {
+    if (_modeServeuses) return _rubriques;
+    final sansBar = _rubriques.where((r) => r.titre != 'Bar').toList();
+    final tables = sansBar.firstWhere((r) => r.titre == 'Tables');
+    return [tables, ...sansBar.where((r) => r != tables)];
+  }
+
   late final List<_Rubrique> _rubriques = [
     _Rubrique('Bar', Icons.local_bar, (m) => BarPage(membre: m),
         compteur: "SELECT COUNT(DISTINCT i.tab_id) AS n FROM tab_items i JOIN tabs t ON t.id = i.tab_id "
@@ -63,6 +75,14 @@ class _EspaceGestionState extends State<EspaceGestion> {
   @override
   void initState() {
     super.initState();
+    _abonnements.add(Requetes.modeServeuses().listen((actif) {
+      if (mounted && actif != _modeServeuses) {
+        setState(() {
+          _modeServeuses = actif;
+          _index = 0;
+        });
+      }
+    }, onError: (_) {}));
     for (final r in _rubriques) {
       if (r.compteur == null) continue;
       final v = _compteurs[r.titre] = ValueNotifier<int>(0);
@@ -89,7 +109,7 @@ class _EspaceGestionState extends State<EspaceGestion> {
   @override
   Widget build(BuildContext context) {
     final large = MediaQuery.sizeOf(context).width >= 900;
-    final r = _rubriques[_index];
+    final r = _visibles[_index.clamp(0, _visibles.length - 1)];
     final contenu = Column(children: [
       const BandeauRefus(),
       Expanded(child: KeyedSubtree(key: ValueKey(_index), child: r.page(widget.membre))),
@@ -120,7 +140,7 @@ class _EspaceGestionState extends State<EspaceGestion> {
               ]),
             ),
             destinations: [
-              for (final x in _rubriques)
+              for (final x in _visibles)
                 NavigationRailDestination(icon: _icone(x), label: Text(x.titre)),
             ],
           ),
@@ -153,10 +173,10 @@ class _EspaceGestionState extends State<EspaceGestion> {
                 Text('${widget.membre.nom} · ${widget.membre.libelleRole}', style: const TextStyle(color: HC.gris)),
               ]),
             ),
-            for (var i = 0; i < _rubriques.length; i++)
+            for (var i = 0; i < _visibles.length; i++)
               ListTile(
-                leading: _icone(_rubriques[i]),
-                title: Text(_rubriques[i].titre),
+                leading: _icone(_visibles[i]),
+                title: Text(_visibles[i].titre),
                 selected: i == _index,
                 selectedColor: HC.accent,
                 onTap: () {

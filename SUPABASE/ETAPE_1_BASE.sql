@@ -1,4 +1,4 @@
--- BARIO · ETAPE 1 · Base complete (scripts 01 a 06, 08, 10, 11 reunis)
+-- BARIO · ETAPE 1 · Base complete (scripts 01 a 06, 08, 10, 11, 12 reunis)
 -- A coller en entier dans Supabase > SQL Editor, puis Run. Peut etre relance sans danger.
 
 -- ===== 01_tables.sql =====
@@ -38,8 +38,10 @@ create table if not exists public.settings (
   ticket_header    text not null default 'MA BOITE',
   ticket_footer    text not null default 'Merci de votre visite',
   night_start_hour int  not null default 18 check (night_start_hour between 0 and 23),
+  waitress_mode    boolean not null default true, -- false : le gerant prend les commandes
   updated_at       timestamptz not null default now()
 );
+alter table public.settings add column if not exists waitress_mode boolean not null default true;
 
 -- ---------------------------------------------------------------------
 -- L'equipe : patron, gerant (caissier), serveuses
@@ -502,9 +504,16 @@ revoke insert, update, delete on public.nights, public.tabs, public.tab_items,
 -- ---------------------------------------------------------------------
 create or replace function public._require_member()
 returns uuid language plpgsql stable security definer set search_path = public as $$
-declare v uuid := public.my_member_id();
+declare v uuid; v_role text; v_club uuid;
 begin
+  select id, role, club_id into v, v_role, v_club
+    from public.members where user_id = auth.uid() and active limit 1;
   if v is null then raise exception 'Compte non autorise'; end if;
+  -- Mode serveuses desactive par le patron : seul le gerant prend les commandes.
+  if v_role = 'serveuse' and not coalesce(
+       (select waitress_mode from public.settings where club_id = v_club), true) then
+    raise exception 'Le role des serveuses est desactive : le gerant prend les commandes';
+  end if;
   return v;
 end $$;
 
@@ -1994,5 +2003,50 @@ grant  execute on function public.admin_seed_menu(uuid) to authenticated;
 
 -- Chargement immediat du menu dans les clubs deja crees.
 select public._seed_club_menu(id) from public.clubs;
+
+notify pgrst, 'reload schema';
+
+-- ===== 12_mode_serveuses.sql =====
+-- =====================================================================
+-- BARIO · Script 12 · Activer / desactiver le role des serveuses
+-- A lancer une fois dans Supabase > SQL Editor (peut etre relance sans danger).
+--   - Reglage par club (settings.waitress_mode), active par defaut.
+--   - Desactive : les serveuses ne peuvent plus rien faire, le gerant prend
+--     lui-meme les commandes.
+--   - Seul le patron peut changer ce reglage.
+-- =====================================================================
+
+alter table public.settings add column if not exists waitress_mode boolean not null default true;
+
+create or replace function public._require_member()
+returns uuid language plpgsql stable security definer set search_path = public as $$
+declare v uuid; v_role text; v_club uuid;
+begin
+  select id, role, club_id into v, v_role, v_club
+    from public.members where user_id = auth.uid() and active limit 1;
+  if v is null then raise exception 'Compte non autorise'; end if;
+  -- Mode serveuses desactive par le patron : seul le gerant prend les commandes.
+  if v_role = 'serveuse' and not coalesce(
+       (select waitress_mode from public.settings where club_id = v_club), true) then
+    raise exception 'Le role des serveuses est desactive : le gerant prend les commandes';
+  end if;
+  return v;
+end $$;
+
+create or replace function public._garde_mode_serveuses()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if new.waitress_mode is distinct from old.waitress_mode
+     and auth.uid() is not null and not public.is_patron() then
+    raise exception 'Seul le patron peut activer ou desactiver le role des serveuses';
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists settings_mode_serveuses on public.settings;
+create trigger settings_mode_serveuses before update on public.settings
+  for each row execute function public._garde_mode_serveuses();
+
+revoke execute on function public._garde_mode_serveuses() from public, anon;
 
 notify pgrst, 'reload schema';

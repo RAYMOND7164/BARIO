@@ -19,6 +19,7 @@ Chaque script peut être relancé sans danger s'il y a eu une erreur.
 | 07_powersync.sql | Accès de PowerSync (remplacer le mot de passe avant de lancer). |
 | 08_licences_abonnement.sql | Abonnement par club, blocage + grâce, espace admin, **création d'un club + son patron**. |
 | 09_admin_plateforme.sql | T'enregistrer comme administrateur (remplacer VOTRE_EMAIL_ICI). |
+| 12_mode_serveuses.sql | Le patron active / désactive le rôle des serveuses (désactivé : le gérant prend les commandes). |
 
 ## Après les scripts
 

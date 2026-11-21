@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../data/base_locale.dart';
 import '../data/membre.dart';
+import '../data/requetes.dart';
 import '../services/club_local.dart';
 import '../services/erreurs.dart';
 import '../theme/bario_theme.dart';
@@ -171,7 +172,26 @@ class _ChargementState extends State<_Chargement> {
         }
 
         final m = entree.membre;
-        return m.estServeuse ? AccueilServeuse(membre: m) : EspaceGestion(membre: m);
+        if (!m.estServeuse) return EspaceGestion(membre: m);
+        // Si le patron a désactivé le mode serveuses, c'est le gérant qui prend les commandes.
+        return StreamBuilder<bool>(
+          stream: Requetes.modeServeuses(),
+          builder: (context, mode) {
+            if (mode.data == false) {
+              return _MessagePleinEcran(
+                icone: Icons.person_off_outlined,
+                couleur: HC.accent,
+                titre: 'Mode serveuses désactivé',
+                texte: 'Le patron a désactivé le rôle des serveuses : c\'est le gérant qui prend '
+                    'les commandes. Cette page se débloquera toute seule dès que le patron le réactivera.',
+                boutons: [
+                  TextButton(onPressed: () => deconnexion(context), child: const Text('Se déconnecter')),
+                ],
+              );
+            }
+            return AccueilServeuse(membre: m);
+          },
+        );
       },
     );
   }

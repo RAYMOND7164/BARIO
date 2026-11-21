@@ -24,6 +24,7 @@ const schemaLocal = Schema([
     Column.text('ticket_header'),
     Column.text('ticket_footer'),
     Column.integer('night_start_hour'),
+    Column.integer('waitress_mode'),
     Column.text('updated_at'),
   ]),
   Table('members', [
@@ -228,7 +229,7 @@ const _tablesViaOperations = {
 /// Colonnes tenues par le serveur : jamais envoyées depuis l'appareil.
 const _colonnesServeur = {'current_tab_id'};
 
-const _colonnesOuiNon = {'active', 'track_stock', 'is_fixed', 'from_till'};
+const _colonnesOuiNon = {'active', 'track_stock', 'is_fixed', 'from_till', 'waitress_mode'};
 
 /// Erreurs définitives : renvoyer la même donnée ne servira à rien.
 final _erreursDefinitives = [

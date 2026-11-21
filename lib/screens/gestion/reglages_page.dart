@@ -39,6 +39,28 @@ class _ReglagesPageState extends State<ReglagesPage> {
         succes: 'Enregistré.');
   }
 
+  Future<void> _changerModeServeuses(Map<String, dynamic> r, bool actif) async {
+    if (!actif) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Désactiver le rôle des serveuses ?'),
+          content: const Text('Le gérant prendra lui-même les commandes. Les serveuses ne pourront plus '
+              'utiliser l\'application. Leurs tables déjà ouvertes restent visibles dans « Tables » '
+              'pour que le gérant les termine. Vous pourrez réactiver à tout moment.'),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
+            FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Désactiver')),
+          ],
+        ),
+      );
+      if (ok != true || !mounted) return;
+    }
+    await tenter(context,
+        () => db.execute('UPDATE settings SET waitress_mode = ? WHERE id = ?', [actif ? 1 : 0, r['id']]),
+        succes: actif ? 'Rôle des serveuses activé.' : 'Rôle des serveuses désactivé : le gérant prend les commandes.');
+  }
+
   Future<void> _changerMesAcces() async {
     final identifiant = TextEditingController(text: widget.membre.login);
     final pin = TextEditingController();
@@ -177,7 +199,24 @@ class _ReglagesPageState extends State<ReglagesPage> {
       stream: Requetes.reglages(),
       builder: (context, snap) {
         final r = (snap.data ?? const []).firstOrNull;
+        final modeServeuses = r == null || r['waitress_mode'] == null || ouiNon(r['waitress_mode']);
         return ListView(padding: const EdgeInsets.all(16), children: [
+          if (r != null) ...[
+            const TitreSection('Prise de commande'),
+            Card(
+              child: SwitchListTile(
+                secondary: Icon(modeServeuses ? Icons.groups_outlined : Icons.person_outline, color: HC.accent),
+                title: const Text('Rôle des serveuses'),
+                subtitle: Text(modeServeuses
+                    ? 'Activé : les serveuses prennent les commandes sur leur téléphone, le gérant sert et encaisse.'
+                    : 'Désactivé : le gérant prend lui-même les commandes (rubrique Tables), '
+                        'sert et encaisse. Les serveuses ne peuvent plus se connecter.'
+                        '${widget.membre.estPatron ? '' : '\nSeul le patron peut changer ce réglage.'}'),
+                value: modeServeuses,
+                onChanged: widget.membre.estPatron ? (v) => _changerModeServeuses(r, v) : null,
+              ),
+            ),
+          ],
           const TitreSection('Reçu'),
           if (r != null)
             Card(

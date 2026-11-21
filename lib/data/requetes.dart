@@ -74,4 +74,9 @@ class Requetes {
       );
 
   static Stream<Lignes> reglages() => db.watch('SELECT * FROM settings LIMIT 1');
+
+  /// Mode serveuses du club (activé par défaut, tant que rien n'est réglé).
+  static Stream<bool> modeServeuses() => db
+      .watch('SELECT waitress_mode FROM settings LIMIT 1')
+      .map((l) => l.isEmpty || l.first['waitress_mode'] == null || ouiNon(l.first['waitress_mode']));
 }

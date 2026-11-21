@@ -34,8 +34,10 @@ create table if not exists public.settings (
   ticket_header    text not null default 'MA BOITE',
   ticket_footer    text not null default 'Merci de votre visite',
   night_start_hour int  not null default 18 check (night_start_hour between 0 and 23),
+  waitress_mode    boolean not null default true, -- false : le gerant prend les commandes
   updated_at       timestamptz not null default now()
 );
+alter table public.settings add column if not exists waitress_mode boolean not null default true;
 
 -- ---------------------------------------------------------------------
 -- L'equipe : patron, gerant (caissier), serveuses

@@ -14,9 +14,16 @@
 -- ---------------------------------------------------------------------
 create or replace function public._require_member()
 returns uuid language plpgsql stable security definer set search_path = public as $$
-declare v uuid := public.my_member_id();
+declare v uuid; v_role text; v_club uuid;
 begin
+  select id, role, club_id into v, v_role, v_club
+    from public.members where user_id = auth.uid() and active limit 1;
   if v is null then raise exception 'Compte non autorise'; end if;
+  -- Mode serveuses desactive par le patron : seul le gerant prend les commandes.
+  if v_role = 'serveuse' and not coalesce(
+       (select waitress_mode from public.settings where club_id = v_club), true) then
+    raise exception 'Le role des serveuses est desactive : le gerant prend les commandes';
+  end if;
   return v;
 end $$;
 
