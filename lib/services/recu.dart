@@ -205,7 +205,7 @@ class Recu {
     final n = numeroWhatsApp(numero);
     if (n == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: BC.fondRouge, content: Text('Numéro incomplet. Exemple : 90 12 34 56')));
+          backgroundColor: HC.fondRouge, content: Text('Numéro incomplet. Exemple : 90 12 34 56')));
       return;
     }
     final message = await texte(tabId);
@@ -213,7 +213,7 @@ class Recu {
     final ok = await launchUrl(lien, mode: LaunchMode.externalApplication);
     if (!ok && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: BC.fondRouge, content: Text('WhatsApp n\'a pas pu s\'ouvrir sur cet appareil.')));
+          backgroundColor: HC.fondRouge, content: Text('WhatsApp n\'a pas pu s\'ouvrir sur cet appareil.')));
     }
   }
 }

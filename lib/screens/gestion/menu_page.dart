@@ -22,9 +22,9 @@ class MenuPage extends StatelessWidget {
         const TabBar(
           isScrollable: true,
           tabAlignment: TabAlignment.start,
-          indicatorColor: BC.accent,
-          labelColor: BC.accent,
-          unselectedLabelColor: BC.gris,
+          indicatorColor: HC.accent,
+          labelColor: HC.accent,
+          unselectedLabelColor: HC.gris,
           tabs: [Tab(text: 'Boissons et prix'), Tab(text: 'Catégories'), Tab(text: 'Tables')],
         ),
         Expanded(
@@ -166,13 +166,13 @@ class _BoissonsState extends State<_Boissons> {
               margin: const EdgeInsets.only(bottom: 6),
               child: ListTile(
                 title: Text('${p['name']}',
-                    style: TextStyle(fontWeight: FontWeight.w700, color: actif ? BC.texte : BC.gris)),
+                    style: TextStyle(fontWeight: FontWeight.w700, color: actif ? HC.texte : HC.gris)),
                 subtitle: Text([
                   if (!ouiNon(p['track_stock'])) 'sans suivi de stock',
                   if (!actif) 'retirée du menu',
                 ].join(' · ')),
                 trailing: Text(fcfa(entier(p['sale_price'])),
-                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: BC.accent)),
+                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: HC.accent)),
                 onTap: () => _fiche(p: p),
               ),
             ));
@@ -227,7 +227,7 @@ class _Categories extends StatelessWidget {
         builder: (context, snap) {
           final cats = snap.data ?? const [];
           return ListView(padding: const EdgeInsets.fromLTRB(16, 12, 16, 96), children: [
-            const Text('L\'ordre des catégories est celui du menu.', style: TextStyle(color: BC.gris)),
+            const Text('L\'ordre des catégories est celui du menu.', style: TextStyle(color: HC.gris)),
             const SizedBox(height: 8),
             for (var i = 0; i < cats.length; i++)
               Card(
@@ -334,20 +334,20 @@ class _Tables extends StatelessWidget {
           final tables = snap.data ?? const [];
           return ListView(padding: const EdgeInsets.fromLTRB(16, 12, 16, 96), children: [
             const Text('Les tables créées pendant la soirée sont marquées « provisoire ».',
-                style: TextStyle(color: BC.gris)),
+                style: TextStyle(color: HC.gris)),
             const SizedBox(height: 8),
             for (final t in tables)
               Card(
                 margin: const EdgeInsets.only(bottom: 6),
                 child: ListTile(
                   title: Text('${t['name']}',
-                      style: TextStyle(fontWeight: FontWeight.w700, color: ouiNon(t['active']) ? BC.texte : BC.gris)),
+                      style: TextStyle(fontWeight: FontWeight.w700, color: ouiNon(t['active']) ? HC.texte : HC.gris)),
                   subtitle: Text([
                     ChoixTable.nomZone(t['zone'] as String?),
                     if (!ouiNon(t['is_fixed'])) 'provisoire',
                     if (!ouiNon(t['active'])) 'retirée',
                   ].join(' · ')),
-                  trailing: const Icon(Icons.edit_outlined, color: BC.gris),
+                  trailing: const Icon(Icons.edit_outlined, color: HC.gris),
                   onTap: () => _modifier(context, t),
                 ),
               ),

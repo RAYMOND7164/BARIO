@@ -133,7 +133,7 @@ class _ChargementState extends State<_Chargement> {
                 SizedBox(height: 32),
                 CircularProgressIndicator(),
                 SizedBox(height: 16),
-                Text('Chargement des données du club…', style: TextStyle(color: BC.gris)),
+                Text('Chargement des données du club…', style: TextStyle(color: HC.gris)),
               ]),
             ),
           );
@@ -142,7 +142,7 @@ class _ChargementState extends State<_Chargement> {
         if (snap.hasError || entree == null) {
           return _MessagePleinEcran(
             icone: Icons.error_outline,
-            couleur: BC.rouge,
+            couleur: HC.rouge,
             texte: snap.hasError
                 ? messageErreur(snap.error!)
                 : 'Ce compte n\'est pas reconnu ou a été désactivé. Adressez-vous au patron.',
@@ -156,11 +156,11 @@ class _ChargementState extends State<_Chargement> {
         if (entree.abonnementBloque) {
           return _MessagePleinEcran(
             icone: Icons.lock_clock,
-            couleur: BC.rouge,
+            couleur: HC.rouge,
             titre: 'Abonnement terminé',
             texte: entree.membre.estPatron
                 ? 'L\'abonnement de votre club est arrivé à échéance. '
-                  'Contactez Bario pour le renouveler et réactiver le logiciel.'
+                  'Contactez votre fournisseur Bario pour le renouveler et réactiver le logiciel.'
                 : 'Le logiciel est en pause : l\'abonnement du club doit être renouvelé. '
                   'Prévenez le patron.',
             boutons: [

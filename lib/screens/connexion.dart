@@ -72,7 +72,7 @@ class _EcranConnexionState extends State<EcranConnexion> {
                     const SizedBox(height: 20),
                     Text(nomClub,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: BC.accent)),
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: HC.accent)),
                     const SizedBox(height: 24),
                     TextField(
                       controller: _identifiant,
@@ -107,7 +107,7 @@ class _EcranConnexionState extends State<EcranConnexion> {
                     ),
                     if (_erreur != null) ...[
                       const SizedBox(height: 12),
-                      Text(_erreur!, style: const TextStyle(color: BC.rouge)),
+                      Text(_erreur!, style: const TextStyle(color: HC.rouge)),
                     ],
                     const SizedBox(height: 24),
                     FilledButton(
@@ -121,7 +121,7 @@ class _EcranConnexionState extends State<EcranConnexion> {
                     const Text(
                       'Pas encore de compte ? Demandez au patron de vous en créer un.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: BC.gris),
+                      style: TextStyle(color: HC.gris),
                     ),
                     const SizedBox(height: 8),
                     TextButton(

@@ -76,21 +76,21 @@ class ChoixTable extends StatelessWidget {
                             ? Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: BC.bordure),
+                                  border: Border.all(color: HC.bordure),
                                 ),
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(6),
                                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                                   Text('${t['name']}', textAlign: TextAlign.center,
-                                      style: const TextStyle(fontSize: 14, color: BC.gris)),
-                                  const Text('occupée', style: TextStyle(fontSize: 11.5, color: BC.rouge)),
+                                      style: const TextStyle(fontSize: 14, color: HC.gris)),
+                                  const Text('occupée', style: TextStyle(fontSize: 11.5, color: HC.rouge)),
                                 ]),
                               )
                             : FilledButton(
                                 style: FilledButton.styleFrom(
-                                  backgroundColor: BC.surface2,
-                                  foregroundColor: BC.texte,
-                                  side: const BorderSide(color: BC.bordure),
+                                  backgroundColor: HC.surface2,
+                                  foregroundColor: HC.texte,
+                                  side: const BorderSide(color: HC.bordure),
                                   padding: const EdgeInsets.all(6),
                                 ),
                                 onPressed: () => _ouvrir(context, t['id'] as String),

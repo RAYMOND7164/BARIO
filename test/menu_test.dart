@@ -23,14 +23,14 @@ void main() {
     await tester.pumpWidget(_app(Scaffold(
       appBar: AppBar(title: const Text('Bar')),
       drawer: Drawer(
-        backgroundColor: BC.surface,
+        backgroundColor: HC.surface,
         child: ListView(children: [
           for (final (i, r) in rubriques().indexed)
             ListTile(
               leading: IconeCompteur(icone: r.$2, compte: r.$3),
               title: Text(r.$1),
               selected: i == 0,
-              selectedColor: BC.accent,
+              selectedColor: HC.accent,
             ),
         ]),
       ),

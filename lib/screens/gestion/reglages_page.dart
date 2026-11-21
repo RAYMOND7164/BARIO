@@ -52,7 +52,7 @@ class _ReglagesPageState extends State<ReglagesPage> {
             width: 420,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const Text('Changez votre identifiant, votre code PIN, ou les deux. '
-                  'Vos nouveaux accès serviront à votre prochaine connexion.', style: TextStyle(color: BC.gris)),
+                  'Vos nouveaux accès serviront à votre prochaine connexion.', style: TextStyle(color: HC.gris)),
               const SizedBox(height: 16),
               TextField(
                 controller: identifiant,
@@ -134,7 +134,7 @@ class _ReglagesPageState extends State<ReglagesPage> {
               const Text('• toutes les soirées et leurs clôtures\n• toutes les notes, boissons servies et paiements\n'
                   '• les dépenses et mouvements de caisse\n• les tables provisoires\nLes reçus repartent au n° 1.'),
               const SizedBox(height: 12),
-              const Text('Toujours gardés : menu, prix, tables fixes, équipe, réglages.', style: TextStyle(color: BC.vert)),
+              const Text('Toujours gardés : menu, prix, tables fixes, équipe, réglages.', style: TextStyle(color: HC.vert)),
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
                 value: stock,
@@ -154,7 +154,7 @@ class _ReglagesPageState extends State<ReglagesPage> {
           actions: [
             TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
             FilledButton(
-              style: FilledButton.styleFrom(backgroundColor: BC.rouge),
+              style: FilledButton.styleFrom(backgroundColor: HC.rouge),
               onPressed: confirmation.text.trim().toUpperCase() == 'EFFACER' ? () => Navigator.pop(ctx, true) : null,
               child: const Text('Tout effacer'),
             ),
@@ -206,7 +206,7 @@ class _ReglagesPageState extends State<ReglagesPage> {
             const TitreSection('Imprimante de cet appareil'),
             Card(
               child: ListTile(
-                leading: const Icon(Icons.print, color: BC.accent),
+                leading: const Icon(Icons.print, color: HC.accent),
                 title: Text(_imprimante?.name ?? 'Aucune imprimante choisie'),
                 subtitle: Text(_imprimante == null
                     ? 'Le logiciel demandera l\'imprimante à chaque reçu.'
@@ -235,7 +235,7 @@ class _ReglagesPageState extends State<ReglagesPage> {
             const TitreSection('Remise à zéro'),
             Card(
               child: ListTile(
-                leading: const Icon(Icons.restart_alt, color: BC.rouge),
+                leading: const Icon(Icons.restart_alt, color: HC.rouge),
                 title: const Text('Remettre le logiciel à zéro'),
                 subtitle: const Text('Efface les soirées, notes, paiements et dépenses (par exemple après les essais). '
                     'Le menu, les prix, les tables et l\'équipe sont gardés.'),
@@ -247,15 +247,15 @@ class _ReglagesPageState extends State<ReglagesPage> {
           Card(
             child: Column(children: [
               ListTile(
-                leading: const Icon(Icons.badge_outlined, color: BC.accent),
+                leading: const Icon(Icons.badge_outlined, color: HC.accent),
                 title: const Text('Mon identifiant et mon code PIN'),
                 subtitle: Text('Identifiant actuel : ${widget.membre.login}'),
-                trailing: const Icon(Icons.edit_outlined, color: BC.gris),
+                trailing: const Icon(Icons.edit_outlined, color: HC.gris),
                 onTap: _changerMesAcces,
               ),
               const Divider(height: 1),
               ListTile(
-                leading: const Icon(Icons.logout, color: BC.rouge),
+                leading: const Icon(Icons.logout, color: HC.rouge),
                 title: Text('Se déconnecter (${widget.membre.nom})'),
                 onTap: () => deconnexion(context),
               ),

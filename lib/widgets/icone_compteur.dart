@@ -31,7 +31,7 @@ class IconeCompteur extends StatelessWidget {
                 constraints: const BoxConstraints(minWidth: 18),
                 height: 18,
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                decoration: BoxDecoration(color: BC.rouge, borderRadius: BorderRadius.circular(9)),
+                decoration: BoxDecoration(color: HC.rouge, borderRadius: BorderRadius.circular(9)),
                 alignment: Alignment.center,
                 child: Text(n > 99 ? '99+' : '$n',
                     style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800, height: 1)),

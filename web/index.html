@@ -14,35 +14,30 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Bario">
-  <meta name="theme-color" content="#0A0E1A">
+  <meta name="theme-color" content="#0B0C10">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="manifest" href="manifest.json">
 
   <title>Bario</title>
   <style>
-    html, body { margin: 0; height: 100%; background: #0A0E1A; }
+    html, body { margin: 0; height: 100%; background: #0B0C10; }
     #chargement {
       position: fixed; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 16px;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #EAF0FA;
+      align-items: center; justify-content: center; gap: 14px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #ECEDF2;
     }
-    #chargement .pastille {
-      width: 72px; height: 72px; border-radius: 22px; display: grid; place-items: center;
-      background: linear-gradient(135deg, #1FD1B9, #7C5CFF, #FF7A59); color: #0A0E1A;
-      font-size: 50px; font-weight: 900; line-height: 1; box-shadow: 0 0 32px rgba(31, 209, 185, .3);
-    }
-    #chargement .nom { font-size: 40px; font-weight: 900; letter-spacing: -1px; }
-    #chargement .nom i { color: #FF7A59; font-style: normal; }
-    #chargement .barre { width: 120px; height: 4px; background: #1A2236; border-radius: 4px; overflow: hidden; margin-top: 8px; }
-    #chargement .barre::after { content: ''; display: block; width: 40%; height: 100%; border-radius: 4px; background: linear-gradient(90deg, #1FD1B9, #7C5CFF, #FF7A59); animation: aller 1.2s ease-in-out infinite; }
+    #chargement svg { width: 64px; height: 64px; }
+    #chargement .nom { font-size: 40px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+    #chargement .barre { width: 120px; height: 3px; background: #1B1E26; border-radius: 2px; overflow: hidden; margin-top: 10px; }
+    #chargement .barre::after { content: ''; display: block; width: 40%; height: 100%; background: #A594F9; animation: aller 1.2s ease-in-out infinite; }
     @keyframes aller { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
   </style>
 </head>
 <body>
   <div id="chargement">
-    <div class="pastille">b</div>
-    <div class="nom">bario<i>.</i></div>
+    <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="18" y="8" width="15" height="84" rx="7.5" fill="#A594F9"/><circle cx="57" cy="63" r="21.5" fill="none" stroke="#A594F9" stroke-width="15"/><circle cx="80" cy="17" r="8" fill="#A594F9"/></svg>
+    <div class="nom">bario</div>
     <div class="barre"></div>
   </div>
   <script>

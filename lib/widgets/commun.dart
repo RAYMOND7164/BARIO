@@ -16,8 +16,8 @@ void erreur(BuildContext context, Object e) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
-      backgroundColor: BC.fondRouge,
-      content: Text(messageErreur(e), style: const TextStyle(color: BC.texte)),
+      backgroundColor: HC.fondRouge,
+      content: Text(messageErreur(e), style: const TextStyle(color: HC.texte)),
     ));
 }
 
@@ -44,7 +44,7 @@ Future<bool> confirmer(BuildContext context, String titre, String texte,
       actions: [
         TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
         FilledButton(
-          style: danger ? FilledButton.styleFrom(backgroundColor: BC.rouge) : null,
+          style: danger ? FilledButton.styleFrom(backgroundColor: HC.rouge) : null,
           onPressed: () => Navigator.pop(ctx, true),
           child: Text(bouton),
         ),
@@ -137,7 +137,7 @@ int lireNombre(TextEditingController c) => int.tryParse(c.text.trim()) ?? 0;
 
 /// Pastille de couleur (état d'une boisson, d'une note…).
 class Pastille extends StatelessWidget {
-  const Pastille(this.texte, {super.key, this.couleur = BC.accent, this.fond = BC.fondAccent});
+  const Pastille(this.texte, {super.key, this.couleur = HC.accent, this.fond = HC.fondAccent});
   final String texte;
   final Color couleur;
   final Color fond;
@@ -166,9 +166,9 @@ class Vide extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icone, size: 48, color: BC.bordure),
+            Icon(icone, size: 48, color: HC.bordure),
             const SizedBox(height: 12),
-            Text(texte, textAlign: TextAlign.center, style: const TextStyle(color: BC.gris, fontSize: 15)),
+            Text(texte, textAlign: TextAlign.center, style: const TextStyle(color: HC.gris, fontSize: 15)),
           ],
         ),
       ),
@@ -190,7 +190,7 @@ class TitreSection extends StatelessWidget {
         children: [
           Expanded(
             child: Text(texte.toUpperCase(),
-                style: const TextStyle(color: BC.accent, fontSize: 12.5, letterSpacing: 1.5, fontWeight: FontWeight.w700)),
+                style: const TextStyle(color: HC.accent, fontSize: 12.5, letterSpacing: 1.5, fontWeight: FontWeight.w700)),
           ),
           ?droite,
         ],

@@ -97,13 +97,13 @@ class _MesTables extends StatelessWidget {
             ],
             if (payees.isNotEmpty) ...[
               TitreSection('Encaissées ce soir · ${payees.length}', droite: Text(fcfa(totalPaye),
-                  style: const TextStyle(color: BC.gris, fontWeight: FontWeight.w600))),
+                  style: const TextStyle(color: HC.gris, fontWeight: FontWeight.w600))),
               for (final n in payees)
                 ListTile(
                   dense: true,
-                  leading: const Icon(Icons.check_circle, color: BC.vert),
+                  leading: const Icon(Icons.check_circle, color: HC.vert),
                   title: Text('${n['table_name'] ?? 'Table'}'),
-                  trailing: Text(fcfa(entier(n['total'])), style: const TextStyle(color: BC.gris)),
+                  trailing: Text(fcfa(entier(n['total'])), style: const TextStyle(color: HC.gris)),
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (_) => NoteServeuse(membre: membre, tabId: n['id'] as String))),
                 ),
@@ -127,7 +127,7 @@ class _CarteNote extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: aPayer ? BC.accent : BC.bordure, width: aPayer ? 2 : 1),
+        side: BorderSide(color: aPayer ? HC.accent : HC.bordure, width: aPayer ? 2 : 1),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
@@ -144,14 +144,14 @@ class _CarteNote extends StatelessWidget {
                 Wrap(spacing: 8, runSpacing: 6, children: [
                   if (aPayer) const Pastille('Envoyée au gérant'),
                   if (attente > 0)
-                    Pastille('$attente en attente du bar', couleur: BC.bleu, fond: BC.fondBleu),
+                    Pastille('$attente en attente du bar', couleur: HC.bleu, fond: HC.fondBleu),
                 ]),
               ]),
             ),
             Text(fcfa(entier(note['total'])),
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: BC.accent)),
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: HC.accent)),
             const SizedBox(width: 4),
-            const Icon(Icons.chevron_right, color: BC.gris),
+            const Icon(Icons.chevron_right, color: HC.gris),
           ]),
         ),
       ),

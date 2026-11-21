@@ -112,12 +112,12 @@ class EquipePage extends StatelessWidget {
             SimpleDialogOption(
               onPressed: () => Navigator.pop(ctx, 'actif'),
               child: Text(actif ? 'Désactiver le compte' : 'Réactiver le compte',
-                  style: TextStyle(color: actif ? BC.rouge : BC.vert)),
+                  style: TextStyle(color: actif ? HC.rouge : HC.vert)),
             ),
           if (m['id'] != membre.id)
             SimpleDialogOption(
               onPressed: () => Navigator.pop(ctx, 'supprimer'),
-              child: const Text('Supprimer définitivement', style: TextStyle(color: BC.rouge)),
+              child: const Text('Supprimer définitivement', style: TextStyle(color: HC.rouge)),
             ),
         ],
       ),
@@ -208,22 +208,22 @@ class EquipePage extends StatelessWidget {
           final membres = snap.data ?? const [];
           return ListView(padding: const EdgeInsets.fromLTRB(16, 12, 16, 96), children: [
             const Text('Créer un compte, changer un code PIN ou désactiver un compte demande internet.',
-                style: TextStyle(color: BC.gris)),
+                style: TextStyle(color: HC.gris)),
             const SizedBox(height: 8),
             for (final m in membres)
               Card(
                 margin: const EdgeInsets.only(bottom: 6),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: ouiNon(m['active']) ? BC.fondAccent : BC.surface2,
+                    backgroundColor: ouiNon(m['active']) ? HC.fondAccent : HC.surface2,
                     child: Text('${m['display_name']}'.isEmpty ? '?' : '${m['display_name']}'.substring(0, 1).toUpperCase(),
-                        style: const TextStyle(color: BC.accent, fontWeight: FontWeight.w800)),
+                        style: const TextStyle(color: HC.accent, fontWeight: FontWeight.w800)),
                   ),
                   title: Text('${m['display_name']}',
-                      style: TextStyle(fontWeight: FontWeight.w700, color: ouiNon(m['active']) ? BC.texte : BC.gris)),
+                      style: TextStyle(fontWeight: FontWeight.w700, color: ouiNon(m['active']) ? HC.texte : HC.gris)),
                   subtitle: Text('${_role(m['role'] as String?)} · identifiant : ${m['login']}'
                       '${ouiNon(m['active']) ? '' : ' · désactivé'}'),
-                  trailing: const Icon(Icons.more_vert, color: BC.gris),
+                  trailing: const Icon(Icons.more_vert, color: HC.gris),
                   onTap: () => _actions(context, m),
                 ),
               ),

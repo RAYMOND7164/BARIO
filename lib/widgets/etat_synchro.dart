@@ -50,10 +50,10 @@ class _EtatSynchroState extends State<EtatSynchro> {
       builder: (context, snap) {
         final s = snap.data!;
         final (IconData icone, Color couleur, String texte) = !s.connected
-            ? (Icons.wifi_off, BC.accentClair, _enAttente > 0 ? 'Hors ligne · $_enAttente en attente' : 'Hors ligne')
+            ? (Icons.wifi_off, HC.accentClair, _enAttente > 0 ? 'Hors ligne · $_enAttente en attente' : 'Hors ligne')
             : _enAttente > 0
-                ? (Icons.sync, BC.gris, 'Envoi…')
-                : (Icons.cloud_done_outlined, BC.vert, 'À jour');
+                ? (Icons.sync, HC.gris, 'Envoi…')
+                : (Icons.cloud_done_outlined, HC.vert, 'À jour');
         return Tooltip(
           message: s.connected
               ? 'Cet appareil est relié au serveur du club.'
@@ -61,7 +61,7 @@ class _EtatSynchroState extends State<EtatSynchro> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: s.connected ? Colors.transparent : BC.fondAccent,
+              color: s.connected ? Colors.transparent : HC.fondAccent,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(mainAxisSize: MainAxisSize.min, children: [
@@ -89,23 +89,23 @@ class BandeauRefus extends StatelessWidget {
         final refus = snap.data ?? const [];
         if (refus.isEmpty) return const SizedBox.shrink();
         return Material(
-          color: BC.fondRouge,
+          color: HC.fondRouge,
           child: InkWell(
             onTap: () => _details(context, [for (final r in refus) Map<String, dynamic>.from(r)]),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(children: [
-                const Icon(Icons.error_outline, color: BC.rouge),
+                const Icon(Icons.error_outline, color: HC.rouge),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     refus.length == 1
                         ? 'Une action a été refusée par le serveur : ${refus.first['erreur']}'
                         : '${refus.length} actions ont été refusées par le serveur. Appuyez pour voir.',
-                    style: const TextStyle(color: BC.texte),
+                    style: const TextStyle(color: HC.texte),
                   ),
                 ),
-                const Icon(Icons.chevron_right, color: BC.texte),
+                const Icon(Icons.chevron_right, color: HC.texte),
               ]),
             ),
           ),
@@ -141,13 +141,13 @@ class BandeauRefus extends StatelessWidget {
               const Text(
                 'Le serveur n\'a pas accepté ces actions. Elles n\'ont pas été enregistrées : '
                 'refaites-les si besoin.',
-                style: TextStyle(color: BC.gris),
+                style: TextStyle(color: HC.gris),
               ),
               const SizedBox(height: 12),
               for (final r in refus)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.block, color: BC.rouge),
+                  leading: const Icon(Icons.block, color: HC.rouge),
                   title: Text(_nom('${r['type']}')),
                   subtitle: Text('${r['erreur']}'),
                   onLongPress: () => info(ctx, jsonEncode(r['payload'])),

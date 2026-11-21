@@ -2,13 +2,13 @@
 ; BARIO · Programme d'installation Windows (Inno Setup)
 ; Fabrique automatiquement par GitHub (.github/workflows/livraison.yml).
 ; =====================================================================
-#define Version GetEnv("APP_VERSION")
+#define Version GetEnv("BARIO_VERSION")
 #if Version == ""
   #define Version "1.0.0"
 #endif
 
 [Setup]
-AppId={{9532C20D-1C59-4D57-A7BA-BFCDF76704E8}
+AppId={{A987E102-0861-4427-9BE6-75E1CBFFC05C}
 AppName=Bario
 AppVersion={#Version}
 AppVerName=Bario {#Version}

@@ -35,7 +35,7 @@ class EncaisserPage extends StatelessWidget {
             final reste = entier(n['total']) - entier(n['paid_amount']);
             return Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), side: const BorderSide(color: BC.accent, width: 1.5)),
+                  borderRadius: BorderRadius.circular(12), side: const BorderSide(color: HC.accent, width: 1.5)),
               child: ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                 title: Text('${n['table_name'] ?? 'Table'}',
@@ -44,7 +44,7 @@ class EncaisserPage extends StatelessWidget {
                     ? Text('Déjà payé ${fcfa(entier(n['paid_amount']))}')
                     : null,
                 trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                  Text(fcfa(reste), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: BC.accent)),
+                  Text(fcfa(reste), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: HC.accent)),
                   const SizedBox(width: 12),
                   FilledButton(
                     onPressed: () => encaisserNote(context, membre, n['id'] as String),
@@ -109,7 +109,7 @@ class _EncaissementState extends State<_Encaissement> {
           content: const Text('Note encaissée. Envoyer aussi le reçu par WhatsApp ?'),
           action: SnackBarAction(
             label: 'WhatsApp',
-            textColor: BC.vert,
+            textColor: HC.vert,
             onPressed: () => Recu.envoyerWhatsApp(page, widget.tabId),
           ),
         ));
@@ -180,10 +180,10 @@ class _EncaissementState extends State<_Encaissement> {
                 const Divider(height: 24),
                 _ligne('Total', fcfa(total), gras: true),
                 if (paye > 0) _ligne('Déjà payé', fcfa(paye)),
-                _ligne('Reste à payer', fcfa(reste), gras: true, couleur: BC.accent, taille: 22),
+                _ligne('Reste à payer', fcfa(reste), gras: true, couleur: HC.accent, taille: 22),
                 if (note['status'] == 'paid') ...[
                   const SizedBox(height: 16),
-                  const Pastille('Note encaissée', couleur: BC.vert, fond: BC.fondVert),
+                  const Pastille('Note encaissée', couleur: HC.vert, fond: HC.fondVert),
                 ],
                 if (note['status'] == 'to_pay') ...[
                   const SizedBox(height: 20),
@@ -205,7 +205,7 @@ class _EncaissementState extends State<_Encaissement> {
                   ),
                   const SizedBox(height: 6),
                   const Text('Pour un paiement en plusieurs fois, entrez seulement la partie payée maintenant.',
-                      style: TextStyle(color: BC.gris, fontSize: 12.5)),
+                      style: TextStyle(color: HC.gris, fontSize: 12.5)),
                   if (_methode == 'cash') ...[
                     const SizedBox(height: 12),
                     TextField(
@@ -217,7 +217,7 @@ class _EncaissementState extends State<_Encaissement> {
                     if (monnaie > 0)
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
-                        child: _ligne('Monnaie à rendre', fcfa(monnaie), gras: true, couleur: BC.vert),
+                        child: _ligne('Monnaie à rendre', fcfa(monnaie), gras: true, couleur: HC.vert),
                       ),
                   ],
                 ],
@@ -227,7 +227,7 @@ class _EncaissementState extends State<_Encaissement> {
           actions: [
             TextButton.icon(
               onPressed: () => Recu.envoyerWhatsApp(context, widget.tabId),
-              icon: const Icon(Icons.chat, color: BC.vert),
+              icon: const Icon(Icons.chat, color: HC.vert),
               label: const Text('WhatsApp'),
             ),
             TextButton(
@@ -249,7 +249,7 @@ class _EncaissementState extends State<_Encaissement> {
   Widget _ligne(String g, String d, {bool gras = false, Color? couleur, double taille = 16}) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 2),
         child: Row(children: [
-          Expanded(child: Text(g, style: TextStyle(fontSize: 15, color: gras ? BC.texte : BC.gris))),
+          Expanded(child: Text(g, style: TextStyle(fontSize: 15, color: gras ? HC.texte : HC.gris))),
           Text(d, style: TextStyle(fontSize: taille, fontWeight: gras ? FontWeight.w800 : FontWeight.w500, color: couleur)),
         ]),
       );

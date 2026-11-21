@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import '../../data/base_locale.dart';
 import '../../data/membre.dart';
 import '../../theme/bario_theme.dart';
-import '../../widgets/logo.dart';
 import '../../widgets/etat_synchro.dart';
 import '../../widgets/icone_compteur.dart';
+import '../../widgets/logo.dart';
 import 'bar_page.dart';
 import 'encaisser_page.dart';
 import 'equipe_page.dart';
@@ -112,12 +112,11 @@ class _EspaceGestionState extends State<EspaceGestion> {
             leading: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(children: [
-                const PastilleBario(taille: 40),
-                const SizedBox(height: 8),
-                const MotBario(taille: 18),
+                const MarqueBario(taille: 30),
                 const SizedBox(height: 6),
+                const Text('bario', style: TextStyle(color: HC.texte, fontWeight: FontWeight.w800, fontSize: 16)),
                 Text('${widget.membre.nom} · ${widget.membre.libelleRole}',
-                    style: const TextStyle(color: BC.gris, fontSize: 11.5)),
+                    style: const TextStyle(color: HC.gris, fontSize: 11.5)),
               ]),
             ),
             destinations: [
@@ -139,19 +138,19 @@ class _EspaceGestionState extends State<EspaceGestion> {
     return Scaffold(
       appBar: AppBar(title: titre),
       drawer: Drawer(
-        backgroundColor: BC.surface,
+        backgroundColor: HC.surface,
         child: SafeArea(
           child: ListView(children: [
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Row(children: [
-                  PastilleBario(taille: 36),
-                  SizedBox(width: 12),
-                  MotBario(taille: 24),
+                  MarqueBario(taille: 26),
+                  SizedBox(width: 10),
+                  Text('bario', style: TextStyle(color: HC.texte, fontWeight: FontWeight.w800, fontSize: 22)),
                 ]),
-                const SizedBox(height: 10),
-                Text('${widget.membre.nom} · ${widget.membre.libelleRole}', style: const TextStyle(color: BC.gris)),
+                const SizedBox(height: 6),
+                Text('${widget.membre.nom} · ${widget.membre.libelleRole}', style: const TextStyle(color: HC.gris)),
               ]),
             ),
             for (var i = 0; i < _rubriques.length; i++)
@@ -159,7 +158,7 @@ class _EspaceGestionState extends State<EspaceGestion> {
                 leading: _icone(_rubriques[i]),
                 title: Text(_rubriques[i].titre),
                 selected: i == _index,
-                selectedColor: BC.accent,
+                selectedColor: HC.accent,
                 onTap: () {
                   setState(() => _index = i);
                   Navigator.pop(context);

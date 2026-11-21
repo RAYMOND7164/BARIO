@@ -54,12 +54,12 @@ class NotesPage extends StatelessWidget {
           if (enCours.isNotEmpty)
           TitreSection('En cours · ${enCours.length}',
               droite: Text(fcfa(enCours.fold<int>(0, (s, n) => s + entier(n['total']))),
-                  style: const TextStyle(color: BC.gris))),
+                  style: const TextStyle(color: HC.gris))),
           for (final n in enCours) _ligne(context, n),
           if (payees.isNotEmpty) ...[
             TitreSection('Encaissées · ${payees.length}',
                 droite: Text(fcfa(payees.fold<int>(0, (s, n) => s + entier(n['total']))),
-                    style: const TextStyle(color: BC.vert, fontWeight: FontWeight.w700))),
+                    style: const TextStyle(color: HC.vert, fontWeight: FontWeight.w700))),
             for (final n in payees) _ligne(context, n),
           ],
           if (annulees.isNotEmpty) ...[
@@ -75,10 +75,10 @@ class NotesPage extends StatelessWidget {
     final etat = n['status'] as String?;
     final attente = entier(n['en_attente']);
     final (String libelle, Color couleur, Color fond) = switch (etat) {
-      'to_pay' => ('À encaisser', BC.accent, BC.fondAccent),
-      'paid' => ('Encaissée${n['ticket_number'] != null ? ' · n° ${n['ticket_number']}' : ''}', BC.vert, BC.fondVert),
-      'cancelled' => ('Annulée', BC.rouge, BC.fondRouge),
-      _ => ('En cours', BC.bleu, BC.fondBleu),
+      'to_pay' => ('À encaisser', HC.accent, HC.fondAccent),
+      'paid' => ('Encaissée${n['ticket_number'] != null ? ' · n° ${n['ticket_number']}' : ''}', HC.vert, HC.fondVert),
+      'cancelled' => ('Annulée', HC.rouge, HC.fondRouge),
+      _ => ('En cours', HC.bleu, HC.fondBleu),
     };
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -90,7 +90,7 @@ class NotesPage extends StatelessWidget {
             child: Wrap(spacing: 8, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
               Text('${n['waitress_name'] ?? ''}'),
               Pastille(libelle, couleur: couleur, fond: fond),
-              if (attente > 0) Pastille('$attente au bar', couleur: BC.bleu, fond: BC.fondBleu),
+              if (attente > 0) Pastille('$attente au bar', couleur: HC.bleu, fond: HC.fondBleu),
             ]),
           ),
           trailing: Text(fcfa(entier(n['total'])), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
@@ -178,7 +178,7 @@ class NoteGestion extends StatelessWidget {
             actions: [
               IconButton(
                 tooltip: 'Envoyer par WhatsApp',
-                icon: const Icon(Icons.chat, color: BC.vert),
+                icon: const Icon(Icons.chat, color: HC.vert),
                 onPressed: () => Recu.envoyerWhatsApp(context, tabId),
               ),
               IconButton(
@@ -189,7 +189,7 @@ class NoteGestion extends StatelessWidget {
               if (etat == 'open' || etat == 'to_pay' || (etat == 'paid' && membre.estPatron))
                 IconButton(
                   tooltip: 'Annuler la note',
-                  icon: const Icon(Icons.delete_outline, color: BC.rouge),
+                  icon: const Icon(Icons.delete_outline, color: HC.rouge),
                   onPressed: () => _annuler(context, etat),
                 ),
             ],
@@ -206,7 +206,7 @@ class NoteGestion extends StatelessWidget {
                       ListTile(
                         contentPadding: EdgeInsets.zero,
                         leading: Text('${i['quantity']} ×',
-                            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: BC.accent)),
+                            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: HC.accent)),
                         title: Text('${i['product_name']}',
                             style: TextStyle(
                                 decoration: i['status'] == 'served' || i['status'] == 'requested'
@@ -221,13 +221,13 @@ class NoteGestion extends StatelessWidget {
                           if (i['status'] == 'served' && (etat == 'open' || etat == 'to_pay'))
                             IconButton(
                               tooltip: 'Retirer de la note',
-                              icon: const Icon(Icons.remove_circle_outline, color: BC.rouge),
+                              icon: const Icon(Icons.remove_circle_outline, color: HC.rouge),
                               onPressed: () => _retirer(context, i),
                             ),
                           if (i['status'] == 'requested')
                             IconButton(
                               tooltip: 'Servi',
-                              icon: const Icon(Icons.check_circle_outline, color: BC.vert),
+                              icon: const Icon(Icons.check_circle_outline, color: HC.vert),
                               onPressed: () => tenter(context, () => Club.servir(membre, [i['id'] as String])),
                             ),
                         ]),
@@ -235,18 +235,18 @@ class NoteGestion extends StatelessWidget {
                   ]),
                 ),
                 Container(
-                  decoration: const BoxDecoration(color: BC.surface, border: Border(top: BorderSide(color: BC.bordure))),
+                  decoration: const BoxDecoration(color: HC.surface, border: Border(top: BorderSide(color: HC.bordure))),
                   padding: const EdgeInsets.all(16),
                   child: SafeArea(
                     top: false,
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Row(children: [
-                        const Text('Total servi', style: TextStyle(color: BC.gris, fontSize: 16)),
+                        const Text('Total servi', style: TextStyle(color: HC.gris, fontSize: 16)),
                         const Spacer(),
                         if (entier(note['paid_amount']) > 0)
-                          Text('payé ${fcfa(entier(note['paid_amount']))}   ', style: const TextStyle(color: BC.vert)),
+                          Text('payé ${fcfa(entier(note['paid_amount']))}   ', style: const TextStyle(color: HC.vert)),
                         Text(fcfa(entier(note['total'])),
-                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: BC.accent)),
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: HC.accent)),
                       ]),
                       const SizedBox(height: 12),
                       Wrap(spacing: 12, runSpacing: 8, alignment: WrapAlignment.end, children: [

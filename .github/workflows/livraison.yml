@@ -105,7 +105,7 @@ jobs:
       - name: Programme d'installation
         shell: pwsh
         env:
-          APP_VERSION: 1.0.${{ env.NUMERO }}
+          BARIO_VERSION: 1.0.${{ env.NUMERO }}
         run: |
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress }

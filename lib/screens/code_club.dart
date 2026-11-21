@@ -39,7 +39,7 @@ class _EcranCodeClubState extends State<EcranCodeClub> {
       final res = await Supabase.instance.client.rpc('club_by_code', params: {'p_code': code});
       final data = (res is Map) ? res : null;
       if (data == null || data['trouve'] != true) {
-        setState(() => _erreur = 'Code du club inconnu. Vérifiez-le auprès de Bario.');
+        setState(() => _erreur = 'Code du club inconnu. Vérifiez-le auprès de votre fournisseur Bario.');
         return;
       }
       await enregistrerClub(data['code'] as String, (data['nom'] as String?) ?? '');
@@ -73,7 +73,7 @@ class _EcranCodeClubState extends State<EcranCodeClub> {
                     'Entrez le code de votre club (fourni par Bario). '
                     'Vous ne le saisirez qu\'une seule fois sur cet appareil.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: BC.gris),
+                    style: TextStyle(color: HC.gris),
                   ),
                   const SizedBox(height: 28),
                   TextField(
@@ -94,7 +94,7 @@ class _EcranCodeClubState extends State<EcranCodeClub> {
                   ),
                   if (_erreur != null) ...[
                     const SizedBox(height: 12),
-                    Text(_erreur!, style: const TextStyle(color: BC.rouge)),
+                    Text(_erreur!, style: const TextStyle(color: HC.rouge)),
                   ],
                   const SizedBox(height: 24),
                   FilledButton(

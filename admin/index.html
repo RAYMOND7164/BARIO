@@ -5,47 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Bario · Admin</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231FD1B9'/%3E%3Cstop offset='.5' stop-color='%237C5CFF'/%3E%3Cstop offset='1' stop-color='%23FF7A59'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='19' fill='url(%23g)'/%3E%3Ctext x='32' y='47' font-size='44' font-family='Arial' font-weight='900' text-anchor='middle' fill='%230A0E1A'%3Eb%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B0C10'/%3E%3Cg transform='translate(22 22) scale(.56)' fill='%23A594F9'%3E%3Crect x='18' y='8' width='15' height='84' rx='7.5'/%3E%3Ccircle cx='57' cy='63' r='21.5' fill='none' stroke='%23A594F9' stroke-width='15'/%3E%3Ccircle cx='80' cy='17' r='8'/%3E%3C/g%3E%3C/svg%3E">
 <style>
 :root{
-  --page:#F3F6FB;--surface:#fff;--nude:#E6F7F4;--prune:#0E8A7A;--prune-f:#0A6E61;--or:#E25E3C;--txt:#0F1526;--gris:#5E6A85;
-  --bord:#DDE3EE;--err:#C62845;--err-f:#FCE8EC;--ok:#1E8A4C;--ok-f:#E3F5EA;--or-f:#FFEDE6;
+  --page:#F5F5F8;--surface:#fff;--nude:#EEECF7;--prune:#5B4BC4;--prune-f:#4A3BAF;--or:#6E5FC7;--txt:#14151B;--gris:#6A6E7E;--sur:#fff;
+  --bord:#E3E3EB;--err:#C2334A;--err-f:#FBEAEC;--ok:#1E8A58;--ok-f:#E3F4EB;--or-f:#EEECF7;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --page:#0A0E1A;--surface:#121828;--nude:#1A2236;--prune:#1FD1B9;--prune-f:#0E8A7A;--or:#FF7A59;--txt:#EAF0FA;--gris:#8E9AB5;
-  --bord:#28324A;--err:#F4607A;--err-f:#33141D;--ok:#4ADE80;--ok-f:#11291C;--or-f:#3A1C14;}}
+  --page:#0B0C10;--surface:#13151B;--nude:#1B1E26;--prune:#A594F9;--prune-f:#8B7BEA;--or:#C9BEFF;--txt:#ECEDF2;--gris:#8D91A1;--sur:#130E2E;
+  --bord:#2A2E38;--err:#EF6B6B;--err-f:#2E1719;--ok:#4CC38A;--ok-f:#13261D;--or-f:#1F1B3A;}}
 :root[data-theme="dark"]{
-  --page:#0A0E1A;--surface:#121828;--nude:#1A2236;--prune:#1FD1B9;--prune-f:#0E8A7A;--or:#FF7A59;--txt:#EAF0FA;--gris:#8E9AB5;
-  --bord:#28324A;--err:#F4607A;--err-f:#33141D;--ok:#4ADE80;--ok-f:#11291C;--or-f:#3A1C14;}
+  --page:#0B0C10;--surface:#13151B;--nude:#1B1E26;--prune:#A594F9;--prune-f:#8B7BEA;--or:#C9BEFF;--txt:#ECEDF2;--gris:#8D91A1;--sur:#130E2E;
+  --bord:#2A2E38;--err:#EF6B6B;--err-f:#2E1719;--ok:#4CC38A;--ok-f:#13261D;--or-f:#1F1B3A;}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--page);color:var(--txt);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 h1,h2,h3{margin:0;font-weight:700}
-.serif{font-weight:800;letter-spacing:-.3px}
+.serif{font-family:inherit}
 .wrap{max-width:1000px;margin:0 auto;padding:0 16px}
 header.top{background:var(--surface);border-bottom:1px solid var(--bord);position:sticky;top:0;z-index:5}
 header.top .wrap{display:flex;align-items:center;gap:10px;min-height:56px}
-.logo{display:inline-flex;align-items:center;gap:10px;font-size:22px;color:var(--txt);font-weight:900;letter-spacing:-.5px}
-.logo i{color:var(--or);font-style:normal}
-.logo .b{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:.45em;background:linear-gradient(135deg,#1FD1B9,#7C5CFF,#FF7A59);color:#0A0E1A;font-size:.9em}
+.logo{display:inline-flex;align-items:center;gap:8px;font-size:22px;color:var(--txt);font-weight:800;letter-spacing:-.5px}
+.logo svg{width:1.15em;height:1.15em;fill:var(--prune)}
+.logo i{color:var(--gris);font-weight:500;font-style:normal;font-size:.7em;letter-spacing:0}
 .sp{flex:1}
 .tabs{display:flex;gap:4px;overflow-x:auto;padding:8px 0}
 .tab{border:0;background:none;color:var(--gris);padding:8px 14px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
-.tab[aria-selected=true]{background:var(--prune);color:var(--page)}
+.tab[aria-selected=true]{background:var(--prune);color:var(--sur)}
 .badge{background:var(--err);color:#fff;border-radius:999px;font-size:12px;padding:1px 7px;margin-left:6px}
 main{padding:20px 0 60px}
-.card{background:var(--surface);border:1px solid var(--bord);border-radius:20px;padding:16px;margin-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--bord);border-radius:16px;padding:16px;margin-bottom:12px}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:16px}
-.stat{background:var(--surface);border:1px solid var(--bord);border-radius:20px;padding:14px}
-.stat b{display:block;font-size:24px;font-weight:800;letter-spacing:-.3px;color:var(--prune);overflow-wrap:anywhere}
+.stat{background:var(--surface);border:1px solid var(--bord);border-radius:16px;padding:14px}
+.stat b{display:block;font-size:24px;color:var(--prune);overflow-wrap:anywhere}
 .stat span{color:var(--gris);font-size:14px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .muted{color:var(--gris);font-size:14px}
 .key{font-family:ui-monospace,Consolas,monospace;letter-spacing:2px;font-weight:700;font-size:20px}
-.pill{display:inline-block;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:600}
+.pill{display:inline-block;border-radius:8px;padding:3px 10px;font-size:13px;font-weight:600}
 .p-ok{background:var(--ok-f);color:var(--ok)}.p-or{background:var(--or-f);color:var(--or)}.p-err{background:var(--err-f);color:var(--err)}.p-nude{background:var(--nude);color:var(--gris)}
-button,.btn{font:inherit;border-radius:999px;border:1px solid var(--bord);background:var(--surface);color:var(--txt);padding:9px 14px;cursor:pointer;font-weight:600}
-button.main,.btn.main{background:var(--prune);border-color:var(--prune);color:var(--page)}
+button,.btn{font:inherit;border-radius:12px;border:1px solid var(--bord);background:var(--surface);color:var(--txt);padding:9px 14px;cursor:pointer;font-weight:600}
+button.main,.btn.main{background:var(--prune);border-color:var(--prune);color:var(--sur)}
 button.sm{padding:6px 10px;font-size:14px}
 button.danger{color:var(--err)}
 button:disabled{opacity:.55;cursor:default}
@@ -55,7 +55,7 @@ label{display:block;font-size:14px;color:var(--gris);margin:12px 0 4px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .search{margin-bottom:12px}
 .link{background:none;border:0;color:var(--prune);padding:0;cursor:pointer;text-align:left;font-weight:700;font-size:17px}
-h2{font-weight:800;letter-spacing:-.3px;font-size:24px;margin-bottom:12px}
+h2{font-size:24px;margin-bottom:12px}
 .back{margin-bottom:12px}
 table{width:100%;border-collapse:collapse;font-size:14px}
 td,th{padding:8px 6px;border-top:1px solid var(--bord);text-align:left;vertical-align:top}
@@ -63,7 +63,7 @@ th{color:var(--gris);font-weight:600}
 .scroll{overflow-x:auto}
 .veil{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
 .dlg{background:var(--surface);border-radius:20px;padding:20px;width:100%;max-width:460px;max-height:92vh;overflow:auto}
-.dlg h3{font-weight:800;letter-spacing:-.3px;font-size:21px;margin-bottom:4px}
+.dlg h3{font-size:21px;margin-bottom:4px}
 .dlg .bar{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;flex-wrap:wrap}
 .keybox{background:var(--nude);border-radius:12px;padding:16px 10px;text-align:center;margin:12px 0;user-select:all}
 #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--txt);color:var(--page);padding:10px 16px;border-radius:12px;z-index:30;max-width:90vw;display:none}
@@ -177,7 +177,7 @@ function ecranConnexion(mode = 'connexion', email = '') {
   const titre = { connexion: 'Connexion', inscription: 'Créer le compte administrateur', mdp: 'Mot de passe oublié' }[mode];
   app.innerHTML = `
   <div class="wrap"><div class="login card">
-    <div class="center"><div class="logo" style="font-size:30px"><span class="b">b</span>bario<i>.</i></div>
+    <div class="center"><div class="logo" style="font-size:30px"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="18" y="8" width="15" height="84" rx="7.5"/><circle cx="57" cy="63" r="21.5" fill="none" stroke="currentColor" stroke-width="15" style="color:var(--prune)"/><circle cx="80" cy="17" r="8"/></svg>bario</div>
     <p class="muted">Espace réservé à l'administrateur</p></div>
     <h3 class="serif" style="font-size:22px;margin-top:8px">${titre}</h3>
     <form id="f" novalidate>
@@ -290,7 +290,7 @@ function erreurPlein(e) {
 function squelette() {
   app.innerHTML = `
   <header class="top"><div class="wrap">
-    <div class="logo"><span class="b">b</span>bario<i>.</i></div><div class="sp"></div>
+    <div class="logo"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="18" y="8" width="15" height="84" rx="7.5"/><circle cx="57" cy="63" r="21.5" fill="none" stroke="currentColor" stroke-width="15" style="color:var(--prune)"/><circle cx="80" cy="17" r="8"/></svg>bario <i>admin</i></div><div class="sp"></div>
     <span class="muted" style="display:none" id="qui"></span>
     <button class="sm" id="th" title="Clair / sombre" aria-label="Clair / sombre">◐</button>
     <button class="sm" id="out">Déconnexion</button>

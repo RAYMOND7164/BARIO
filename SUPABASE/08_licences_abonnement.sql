@@ -105,7 +105,7 @@ begin
   select * into c from public.clubs where id = public.my_club();
   if not found then raise exception 'ABONNEMENT: aucun club'; end if;
   if public._club_etat(c) = 'bloque' then
-    raise exception 'ABONNEMENT_EXPIRE: abonnement termine, contactez Bario';
+    raise exception 'ABONNEMENT_EXPIRE: abonnement termine, contactez votre fournisseur Bario';
   end if;
 end $$;
 

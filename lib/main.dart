@@ -57,7 +57,7 @@ class _ErreurDemarrage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(32),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              const Icon(Icons.error_outline, size: 48, color: BC.rouge),
+              const Icon(Icons.error_outline, size: 48, color: HC.rouge),
               const SizedBox(height: 16),
               const Text('Bario n\'a pas pu démarrer',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700), textAlign: TextAlign.center),
@@ -65,7 +65,7 @@ class _ErreurDemarrage extends StatelessWidget {
               const Text('Fermez complètement l\'application puis rouvrez-la. '
                   'Si le problème continue, envoyez une capture de cet écran.', textAlign: TextAlign.center),
               const SizedBox(height: 16),
-              SelectableText('$erreur', textAlign: TextAlign.center, style: const TextStyle(fontSize: 12, color: BC.gris)),
+              SelectableText('$erreur', textAlign: TextAlign.center, style: const TextStyle(fontSize: 12, color: HC.gris)),
             ]),
           ),
         ),

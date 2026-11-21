@@ -50,7 +50,7 @@ class _OuvertureState extends State<_Ouverture> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           const Text('La soirée est fermée', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
-          const Text('Ouvrez-la pour commencer à ouvrir des tables.', style: TextStyle(color: BC.gris)),
+          const Text('Ouvrez-la pour commencer à ouvrir des tables.', style: TextStyle(color: HC.gris)),
           const SizedBox(height: 16),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 360),
@@ -185,7 +185,7 @@ class _SoireeEnCours extends StatelessWidget {
           width: 440,
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             const Text('Comptez l\'argent avant de saisir. Les montants attendus apparaîtront après la clôture.',
-                style: TextStyle(color: BC.gris)),
+                style: TextStyle(color: HC.gris)),
             const SizedBox(height: 16),
             ChampNombre(controller: especes, label: 'Espèces comptées dans la caisse', suffixe: 'FCFA', autofocus: true),
             const SizedBox(height: 12),
@@ -222,16 +222,16 @@ class _SoireeEnCours extends StatelessWidget {
         return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Card(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12), side: const BorderSide(color: BC.vert, width: 1.5)),
+                borderRadius: BorderRadius.circular(12), side: const BorderSide(color: HC.vert, width: 1.5)),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [
-                  const Pastille('Soirée ouverte', couleur: BC.vert, fond: BC.fondVert),
+                  const Pastille('Soirée ouverte', couleur: HC.vert, fond: HC.fondVert),
                   const SizedBox(width: 12),
                   if (ouverture != null)
                     Text('depuis ${dateCourte(ouverture)} à ${ouverture.hour}h${ouverture.minute.toString().padLeft(2, '0')}',
-                        style: const TextStyle(color: BC.gris)),
+                        style: const TextStyle(color: HC.gris)),
                 ]),
                 const SizedBox(height: 16),
                 Wrap(spacing: 12, runSpacing: 12, children: [
@@ -251,7 +251,7 @@ class _SoireeEnCours extends StatelessWidget {
                   OutlinedButton.icon(
                       onPressed: () => _mouvement(context, 'out'), icon: const Icon(Icons.remove), label: const Text('Sortie de caisse')),
                   FilledButton.icon(
-                    style: FilledButton.styleFrom(backgroundColor: BC.rouge),
+                    style: FilledButton.styleFrom(backgroundColor: HC.rouge),
                     onPressed: () => _cloturer(context, attenduEspeces, entier(c['momo'])),
                     icon: const Icon(Icons.lock),
                     label: const Text('Clôturer la soirée'),
@@ -280,14 +280,14 @@ class _Chiffre extends StatelessWidget {
       width: 220,
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: accent ? BC.fondAccent : BC.surface2,
+        color: accent ? HC.fondAccent : HC.surface2,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accent ? BC.accent : BC.bordure),
+        border: Border.all(color: accent ? HC.accent : HC.bordure),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(titre, style: const TextStyle(color: BC.gris, fontSize: 12.5)),
+        Text(titre, style: const TextStyle(color: HC.gris, fontSize: 12.5)),
         const SizedBox(height: 4),
-        Text(valeur, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: accent ? BC.accent : BC.texte)),
+        Text(valeur, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: accent ? HC.accent : HC.texte)),
       ]),
     );
   }
@@ -308,14 +308,14 @@ class _Mouvements extends StatelessWidget {
       ),
       builder: (context, snap) {
         final lignes = snap.data ?? const [];
-        if (lignes.isEmpty) return const Padding(padding: EdgeInsets.all(8), child: Text('Rien pour l\'instant.', style: TextStyle(color: BC.gris)));
+        if (lignes.isEmpty) return const Padding(padding: EdgeInsets.all(8), child: Text('Rien pour l\'instant.', style: TextStyle(color: HC.gris)));
         return Column(children: [
           for (final l in lignes)
             ListTile(
               dense: true,
               leading: Icon(
                 l['genre'] == 'in' ? Icons.add_circle_outline : (l['genre'] == 'out' ? Icons.remove_circle_outline : Icons.receipt_long),
-                color: l['genre'] == 'in' ? BC.vert : BC.rouge,
+                color: l['genre'] == 'in' ? HC.vert : HC.rouge,
               ),
               title: Text('${l['libelle']}'),
               subtitle: Text(l['genre'] == 'depense' ? 'Dépense' : (l['genre'] == 'in' ? 'Entrée de caisse' : 'Sortie de caisse')),
@@ -340,7 +340,7 @@ class _Historique extends StatelessWidget {
       ),
       builder: (context, snap) {
         final soirees = snap.data ?? const [];
-        if (soirees.isEmpty) return const Text('Aucune soirée clôturée.', style: TextStyle(color: BC.gris));
+        if (soirees.isEmpty) return const Text('Aucune soirée clôturée.', style: TextStyle(color: HC.gris));
         return Column(children: [
           for (final s in soirees) _SoireeFermee(s),
         ]);
@@ -372,8 +372,8 @@ class _SoireeFermee extends StatelessWidget {
         trailing: calcule
             ? Pastille(
                 ecart == 0 ? 'Juste' : 'Écart ${ecart > 0 ? '+' : ''}${fcfa(ecart)}',
-                couleur: ecart == 0 ? BC.vert : (ecart > 0 ? BC.accent : BC.rouge),
-                fond: ecart == 0 ? BC.fondVert : (ecart > 0 ? BC.fondAccent : BC.fondRouge),
+                couleur: ecart == 0 ? HC.vert : (ecart > 0 ? HC.accent : HC.rouge),
+                fond: ecart == 0 ? HC.fondVert : (ecart > 0 ? HC.fondAccent : HC.fondRouge),
               )
             : null,
       ),

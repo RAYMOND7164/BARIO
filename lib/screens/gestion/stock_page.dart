@@ -154,7 +154,7 @@ class _StockPageState extends State<StockPage> {
                     title: Text('${p['name']}', style: const TextStyle(fontWeight: FontWeight.w700)),
                     subtitle: Text('${p['category_name'] ?? ''}${entier(p['min_stock']) > 0 ? ' · minimum ${p['min_stock']}' : ''}'),
                     trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                      Text('$q', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: faible ? BC.rouge : BC.texte)),
+                      Text('$q', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: faible ? HC.rouge : HC.texte)),
                       const SizedBox(width: 12),
                       IconButton.filledTonal(
                           tooltip: 'Arrivée de stock', onPressed: () => _entree(p), icon: const Icon(Icons.add)),
@@ -222,7 +222,7 @@ class _InventaireState extends State<_Inventaire> {
       appBar: AppBar(title: const Text('Inventaire')),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         const Text('Comptez chaque boisson et saisissez le nombre trouvé. Laissez vide ce que vous n\'avez pas compté.',
-            style: TextStyle(color: BC.gris)),
+            style: TextStyle(color: HC.gris)),
         const SizedBox(height: 12),
         for (final p in widget.produits)
           Padding(
@@ -231,7 +231,7 @@ class _InventaireState extends State<_Inventaire> {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('${p['name']}', style: const TextStyle(fontWeight: FontWeight.w700)),
-                  Text('Dans le logiciel : ${entier(p['quantite'])}', style: const TextStyle(color: BC.gris, fontSize: 12.5)),
+                  Text('Dans le logiciel : ${entier(p['quantite'])}', style: const TextStyle(color: HC.gris, fontSize: 12.5)),
                 ]),
               ),
               SizedBox(width: 120, child: ChampNombre(controller: _champ(p['id'] as String), label: 'Compté')),

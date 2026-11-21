@@ -48,10 +48,10 @@ class BarresVerticales extends StatelessWidget {
               right: 0,
               top: 18 + hauteur * (1 - moyenne / maxi),
               child: Row(children: [
-                Expanded(child: Container(height: 1, color: BC.accentFonce)),
+                Expanded(child: Container(height: 1, color: HC.accentFonce)),
                 Padding(
                   padding: const EdgeInsets.only(left: 6),
-                  child: Text('moy. ${montantCourt(moyenne)}', style: const TextStyle(color: BC.accentFonce, fontSize: 11)),
+                  child: Text('moy. ${montantCourt(moyenne)}', style: const TextStyle(color: HC.accentFonce, fontSize: 11)),
                 ),
               ]),
             ),
@@ -72,13 +72,13 @@ class BarresVerticales extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
-                                  fontSize: 10.5, color: b.choisie ? BC.accent : BC.gris, fontWeight: FontWeight.w700)),
+                                  fontSize: 10.5, color: b.choisie ? HC.accent : HC.gris, fontWeight: FontWeight.w700)),
                         const SizedBox(height: 4),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: largeurBarre * 0.14),
                           height: maxi == 0 ? 2 : (hauteur * b.valeur / maxi).clamp(2.0, hauteur),
                           decoration: BoxDecoration(
-                            color: b.choisie ? BC.accent : (b.enCours ? BC.bleu : BC.accentFonce),
+                            color: b.choisie ? HC.accent : (b.enCours ? HC.bleu : HC.accentFonce),
                             borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                           ),
                         ),
@@ -86,7 +86,7 @@ class BarresVerticales extends StatelessWidget {
                         Text(b.libelle,
                             maxLines: 1,
                             overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 10.5, color: b.choisie ? BC.accent : BC.gris)),
+                            style: TextStyle(fontSize: 10.5, color: b.choisie ? HC.accent : HC.gris)),
                       ]),
                     ),
                   ),
@@ -101,7 +101,7 @@ class BarresVerticales extends StatelessWidget {
 
 /// Barres horizontales triées : serveuses, boissons…
 class BarresHorizontales extends StatelessWidget {
-  const BarresHorizontales({super.key, required this.barres, this.couleur = BC.accent, this.formater});
+  const BarresHorizontales({super.key, required this.barres, this.couleur = HC.accent, this.formater});
   final List<Barre> barres;
   final Color couleur;
 
@@ -125,11 +125,11 @@ class BarresHorizontales extends StatelessWidget {
               Text((formater ?? fcfa)(b.valeur), style: const TextStyle(fontWeight: FontWeight.w800)),
             ]),
             if (b.detail != null)
-              Text('${b.detail}', style: const TextStyle(color: BC.gris, fontSize: 12.5)),
+              Text('${b.detail}', style: const TextStyle(color: HC.gris, fontSize: 12.5)),
             const SizedBox(height: 4),
             LayoutBuilder(
               builder: (context, c) => Stack(children: [
-                Container(height: 8, decoration: BoxDecoration(color: BC.surface2, borderRadius: BorderRadius.circular(4))),
+                Container(height: 8, decoration: BoxDecoration(color: HC.surface2, borderRadius: BorderRadius.circular(4))),
                 Container(
                   height: 8,
                   width: maxi == 0 ? 0 : c.maxWidth * b.valeur / maxi,
@@ -161,15 +161,15 @@ class BarrePartagee extends StatelessWidget {
         child: SizedBox(
           height: 14,
           child: Row(children: [
-            if (g > 0) Expanded(flex: g, child: Container(color: BC.accent)),
-            if (g < 1000) Expanded(flex: 1000 - g, child: Container(color: BC.bleu)),
+            if (g > 0) Expanded(flex: g, child: Container(color: HC.accent)),
+            if (g < 1000) Expanded(flex: 1000 - g, child: Container(color: HC.bleu)),
           ]),
         ),
       ),
       const SizedBox(height: 6),
       Wrap(spacing: 20, runSpacing: 6, children: [
-        _legende(BC.accent, '${gauche.libelle} $pc %'),
-        _legende(BC.bleu, '${droite.libelle} ${100 - pc} %'),
+        _legende(HC.accent, '${gauche.libelle} $pc %'),
+        _legende(HC.bleu, '${droite.libelle} ${100 - pc} %'),
       ]),
     ]);
   }

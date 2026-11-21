@@ -1,5 +1,5 @@
 name: harem_club
-description: "Bario, logiciel de gestion de boite de nuit : serveuses, bar, caisse, stock."
+description: "Bario, logiciel de gestion de bar et club : serveuses, bar, caisse, stock."
 publish_to: 'none'
 
 version: 1.0.0+1

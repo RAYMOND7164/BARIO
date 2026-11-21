@@ -3,7 +3,7 @@
 -- A coller en entier dans Supabase > SQL Editor > New query, puis "Run".
 -- Montants en FCFA (nombres entiers).
 --
--- Difference avec Bario : Bario est multi-clients.
+-- Bario est multi-clients.
 -- Chaque boite de nuit est un "club" isole. La colonne club_id, presente
 -- sur chaque table, dit a quel club appartient la ligne. Un club ne voit
 -- jamais les donnees d'un autre (voir script 02).

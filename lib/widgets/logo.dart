@@ -2,50 +2,47 @@ import 'package:flutter/material.dart';
 
 import '../theme/bario_theme.dart';
 
-/// Pastille de la marque : carré arrondi en dégradé turquoise → corail, avec un « b ».
-class PastilleBario extends StatelessWidget {
-  const PastilleBario({super.key, this.taille = 40});
+/// Symbole de Bario : un « b » géométrique (une tige + un anneau, comme un
+/// verre vu de dessus posé sur le comptoir) et un point lumineux.
+class MarqueBario extends StatelessWidget {
+  const MarqueBario({super.key, this.taille = 40, this.couleur = HC.accent});
   final double taille;
+  final Color couleur;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: taille,
-      height: taille,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        gradient: BC.degrade,
-        borderRadius: BorderRadius.circular(taille * 0.3),
-        boxShadow: [BoxShadow(color: BC.accent.withValues(alpha: 0.25), blurRadius: taille * 0.4)],
-      ),
-      child: Text('b',
-          style: TextStyle(
-              fontSize: taille * 0.68,
-              fontWeight: FontWeight.w900,
-              color: BC.fond,
-              height: 1.0)),
-    );
-  }
+  Widget build(BuildContext context) =>
+      SizedBox.square(dimension: taille, child: CustomPaint(painter: _PeintreMarque(couleur)));
 }
 
-/// Nom de la marque : « bario » en minuscules, suivi d'un point corail.
-class MotBario extends StatelessWidget {
-  const MotBario({super.key, this.taille = 24});
-  final double taille;
+class _PeintreMarque extends CustomPainter {
+  _PeintreMarque(this.couleur);
+  final Color couleur;
 
   @override
-  Widget build(BuildContext context) {
-    return Text.rich(
-      TextSpan(children: [
-        const TextSpan(text: 'bario', style: TextStyle(color: BC.texte)),
-        TextSpan(text: '.', style: TextStyle(color: BC.corail)),
-      ]),
-      style: TextStyle(fontSize: taille, fontWeight: FontWeight.w900, letterSpacing: -taille * 0.03, height: 1.0),
-    );
+  void paint(Canvas canvas, Size size) {
+    final u = size.width / 100;
+    final plein = Paint()..color = couleur..isAntiAlias = true;
+    // Tige
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(Rect.fromLTWH(18 * u, 8 * u, 15 * u, 84 * u), Radius.circular(7.5 * u)), plein);
+    // Anneau
+    canvas.drawCircle(
+        Offset(57 * u, 63 * u),
+        21.5 * u,
+        Paint()
+          ..color = couleur
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 15 * u
+          ..isAntiAlias = true);
+    // Point lumineux
+    canvas.drawCircle(Offset(80 * u, 17 * u), 8 * u, plein);
   }
+
+  @override
+  bool shouldRepaint(_PeintreMarque old) => old.couleur != couleur;
 }
 
-/// Logo complet : pastille + nom + slogan.
+/// Logo complet : symbole + nom « bario » (+ slogan).
 class Logo extends StatelessWidget {
   const Logo({super.key, this.taille = 40, this.slogan = true});
   final double taille;
@@ -56,13 +53,19 @@ class Logo extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        PastilleBario(taille: taille * 1.5),
-        SizedBox(height: taille * 0.35),
-        MotBario(taille: taille * 1.05),
+        MarqueBario(taille: taille * 1.4),
+        SizedBox(height: taille * 0.3),
+        Text('bario',
+            style: TextStyle(
+                fontSize: taille,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -taille * 0.03,
+                color: HC.texte,
+                height: 1.0)),
         if (slogan) ...[
-          SizedBox(height: taille * 0.22),
-          Text('Bar · Lounge · Club',
-              style: TextStyle(fontSize: taille * 0.3, letterSpacing: 1.2, color: BC.gris, fontWeight: FontWeight.w600)),
+          SizedBox(height: taille * 0.25),
+          Text('GESTION DE BAR & CLUB',
+              style: TextStyle(fontSize: taille * 0.22, letterSpacing: 2.2, color: HC.gris, fontWeight: FontWeight.w600)),
         ],
       ],
     );

@@ -75,7 +75,7 @@ class _CarteDemande extends StatelessWidget {
     final montant = lignes.fold<int>(0, (s, l) => s + entier(l['quantity']) * entier(l['unit_price']));
     return Card(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12), side: const BorderSide(color: BC.bleu, width: 1.5)),
+          borderRadius: BorderRadius.circular(12), side: const BorderSide(color: HC.bleu, width: 1.5)),
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -86,9 +86,9 @@ class _CarteDemande extends StatelessWidget {
             ),
             if (heure != null)
               Text('${heure.hour.toString().padLeft(2, '0')}h${heure.minute.toString().padLeft(2, '0')}',
-                  style: const TextStyle(color: BC.gris)),
+                  style: const TextStyle(color: HC.gris)),
           ]),
-          Text('Serveuse : ${premiere['waitress_name'] ?? ''}', style: const TextStyle(color: BC.gris)),
+          Text('Serveuse : ${premiere['waitress_name'] ?? ''}', style: const TextStyle(color: HC.gris)),
           const Divider(height: 18),
           Expanded(
             child: ListView(children: [
@@ -97,19 +97,19 @@ class _CarteDemande extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Row(children: [
                     Text('${l['quantity']} ×',
-                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: BC.accent)),
+                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: HC.accent)),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text('${l['product_name']}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                         if (ouiNon(l['track_stock']) && entier(l['stock']) < entier(l['quantity']))
                           Text('Stock affiché : ${entier(l['stock'])}',
-                              style: const TextStyle(color: BC.rouge, fontSize: 12)),
+                              style: const TextStyle(color: HC.rouge, fontSize: 12)),
                       ]),
                     ),
                     PopupMenuButton<String>(
                       tooltip: 'Plus',
-                      icon: const Icon(Icons.more_vert, color: BC.gris),
+                      icon: const Icon(Icons.more_vert, color: HC.gris),
                       onSelected: (v) async {
                         final id = l['id'] as String;
                         if (v == 'servi') {
@@ -134,7 +134,7 @@ class _CarteDemande extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           FilledButton.icon(
-            style: FilledButton.styleFrom(backgroundColor: BC.vert, minimumSize: const Size.fromHeight(50)),
+            style: FilledButton.styleFrom(backgroundColor: HC.vert, minimumSize: const Size.fromHeight(50)),
             onPressed: () => tenter(context, () => Club.servir(membre, [for (final l in lignes) l['id'] as String])),
             icon: const Icon(Icons.check),
             label: Text('Servi · ${fcfa(montant)}'),

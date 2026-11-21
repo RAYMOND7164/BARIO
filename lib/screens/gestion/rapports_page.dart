@@ -81,7 +81,7 @@ class _RapportsPageState extends State<RapportsPage> {
                 if (r.hasError) {
                   return Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Text(messageErreur(r.error!), style: const TextStyle(color: BC.rouge)),
+                    child: Text(messageErreur(r.error!), style: const TextStyle(color: HC.rouge)),
                   );
                 }
                 return _Rapport(r.data!);
@@ -131,7 +131,7 @@ class _Rapport extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: serveuses.isEmpty
-              ? const Text('Aucune note.', style: TextStyle(color: BC.gris))
+              ? const Text('Aucune note.', style: TextStyle(color: HC.gris))
               : BarresHorizontales(barres: [
                   for (final s in serveuses)
                     Barre(
@@ -149,9 +149,9 @@ class _Rapport extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: top.isEmpty
-              ? const Text('Aucune vente.', style: TextStyle(color: BC.gris))
+              ? const Text('Aucune vente.', style: TextStyle(color: HC.gris))
               : BarresHorizontales(
-                  couleur: BC.bleu,
+                  couleur: HC.bleu,
                   formater: (q) => '$q vendu${q > 1 ? 's' : ''}',
                   barres: [
                     for (final t in top)
@@ -176,14 +176,14 @@ class _Tuile extends StatelessWidget {
       width: 220,
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: accent ? BC.fondAccent : BC.surface,
+        color: accent ? HC.fondAccent : HC.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accent ? BC.accent : BC.bordure),
+        border: Border.all(color: accent ? HC.accent : HC.bordure),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(titre, style: const TextStyle(color: BC.gris, fontSize: 12.5)),
+        Text(titre, style: const TextStyle(color: HC.gris, fontSize: 12.5)),
         const SizedBox(height: 4),
-        Text(valeur, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: accent ? BC.accent : BC.texte)),
+        Text(valeur, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: accent ? HC.accent : HC.texte)),
       ]),
     );
   }
@@ -218,9 +218,9 @@ class _GraphiqueSoirees extends StatelessWidget {
                 const Expanded(
                   child: Text('Chiffre des dernières soirées', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                 ),
-                Text('Total ${fcfa(total)}', style: const TextStyle(color: BC.accent, fontWeight: FontWeight.w800)),
+                Text('Total ${fcfa(total)}', style: const TextStyle(color: HC.accent, fontWeight: FontWeight.w800)),
               ]),
-              const Text('Touchez une barre pour voir le détail de la soirée.', style: TextStyle(color: BC.gris, fontSize: 12.5)),
+              const Text('Touchez une barre pour voir le détail de la soirée.', style: TextStyle(color: HC.gris, fontSize: 12.5)),
               const SizedBox(height: 12),
               BarresVerticales(
                 barres: [

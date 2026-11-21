@@ -42,13 +42,13 @@ class NoteServeuse extends StatelessWidget {
               final total = servies.fold<int>(0, (s, i) => s + entier(i['quantity']) * entier(i['unit_price']));
               return Column(children: [
                 if (etat == 'to_pay') _Bandeau(
-                    couleur: BC.accent, fond: BC.fondAccent, icone: Icons.payments,
+                    couleur: HC.accent, fond: HC.fondAccent, icone: Icons.payments,
                     texte: 'Envoyée au gérant : ${fcfa(entier(note['total']))} à encaisser.'),
                 if (etat == 'paid') _Bandeau(
-                    couleur: BC.vert, fond: BC.fondVert, icone: Icons.check_circle,
+                    couleur: HC.vert, fond: HC.fondVert, icone: Icons.check_circle,
                     texte: 'Encaissée${note['ticket_number'] != null ? ' · reçu n° ${note['ticket_number']}' : ''}.'),
                 if (etat == 'cancelled') const _Bandeau(
-                    couleur: BC.rouge, fond: BC.fondRouge, icone: Icons.block, texte: 'Note annulée.'),
+                    couleur: HC.rouge, fond: HC.fondRouge, icone: Icons.block, texte: 'Note annulée.'),
                 Expanded(
                   child: items.isEmpty
                       ? const Vide('Aucune boisson.\nAppuyez sur « Ajouter des boissons ».', icone: Icons.local_bar)
@@ -57,11 +57,11 @@ class NoteServeuse extends StatelessWidget {
                           for (final i in attente)
                             _LigneBoisson(
                               item: i,
-                              couleur: BC.bleu,
+                              couleur: HC.bleu,
                               action: etat == 'open'
                                   ? IconButton(
                                       tooltip: 'Annuler cette boisson',
-                                      icon: const Icon(Icons.close, color: BC.rouge),
+                                      icon: const Icon(Icons.close, color: HC.rouge),
                                       onPressed: () async {
                                         final ok = await confirmer(context, 'Annuler cette boisson ?',
                                             '${i['quantity']} × ${i['product_name']} ne sera pas servi.',
@@ -74,9 +74,9 @@ class NoteServeuse extends StatelessWidget {
                                   : null,
                             ),
                           if (servies.isNotEmpty) const TitreSection('Servies'),
-                          for (final i in servies) _LigneBoisson(item: i, couleur: BC.vert),
+                          for (final i in servies) _LigneBoisson(item: i, couleur: HC.vert),
                           if (refusees.isNotEmpty) const TitreSection('Refusées par le bar'),
-                          for (final i in refusees) _LigneBoisson(item: i, couleur: BC.rouge, barre: true),
+                          for (final i in refusees) _LigneBoisson(item: i, couleur: HC.rouge, barre: true),
                         ]),
                 ),
                 _Pied(
@@ -132,7 +132,7 @@ class _LigneBoisson extends StatelessWidget {
     final style = TextStyle(
       fontSize: 16,
       decoration: barre ? TextDecoration.lineThrough : null,
-      color: barre ? BC.gris : BC.texte,
+      color: barre ? HC.gris : HC.texte,
     );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -145,10 +145,10 @@ class _LigneBoisson extends StatelessWidget {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('${item['product_name']}', style: style),
             if (barre && item['removed_reason'] != null)
-              Text('${item['removed_reason']}', style: const TextStyle(color: BC.rouge, fontSize: 12.5)),
+              Text('${item['removed_reason']}', style: const TextStyle(color: HC.rouge, fontSize: 12.5)),
           ]),
         ),
-        Text(fcfa(q * prix), style: style.copyWith(color: barre ? BC.gris : BC.gris)),
+        Text(fcfa(q * prix), style: style.copyWith(color: barre ? HC.gris : HC.gris)),
         ?action,
       ]),
     );
@@ -185,18 +185,18 @@ class _Pied extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (ctx) => Dialog.fullscreen(
-        backgroundColor: BC.fond,
+        backgroundColor: HC.fond,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(children: [
               const Spacer(),
-              Text(nomTable, style: const TextStyle(fontSize: 22, color: BC.gris)),
+              Text(nomTable, style: const TextStyle(fontSize: 22, color: HC.gris)),
               const SizedBox(height: 12),
-              const Text('À payer', style: TextStyle(fontSize: 18, color: BC.gris)),
+              const Text('À payer', style: TextStyle(fontSize: 18, color: HC.gris)),
               FittedBox(
                 child: Text(fcfa(montant),
-                    style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w900, color: BC.accent)),
+                    style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w900, color: HC.accent)),
               ),
               const SizedBox(height: 16),
               const Text('Annoncez ce montant au client, puis remettez l\'argent au gérant.',
@@ -218,8 +218,8 @@ class _Pied extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: BC.surface,
-        border: Border(top: BorderSide(color: BC.bordure)),
+        color: HC.surface,
+        border: Border(top: BorderSide(color: HC.bordure)),
       ),
       child: SafeArea(
         top: false,
@@ -227,9 +227,9 @@ class _Pied extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             Row(children: [
-              const Text('Total servi', style: TextStyle(fontSize: 16, color: BC.gris)),
+              const Text('Total servi', style: TextStyle(fontSize: 16, color: HC.gris)),
               const Spacer(),
-              Text(fcfa(total), style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: BC.accent)),
+              Text(fcfa(total), style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: HC.accent)),
             ]),
             const SizedBox(height: 12),
             if (etat == 'open')
@@ -255,7 +255,7 @@ class _Pied extends StatelessWidget {
               ]),
             if (etat == 'paid')
               OutlinedButton.icon(
-                style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(54), foregroundColor: BC.vert),
+                style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(54), foregroundColor: HC.vert),
                 onPressed: () => Recu.envoyerWhatsApp(context, tabId),
                 icon: const Icon(Icons.chat),
                 label: const Text('Envoyer le reçu par WhatsApp'),

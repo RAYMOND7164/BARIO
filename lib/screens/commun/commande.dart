@@ -159,9 +159,9 @@ class _CommandeState extends State<Commande> {
     return Container(
       margin: const EdgeInsets.only(bottom: 6),
       decoration: BoxDecoration(
-        color: q > 0 ? BC.fondAccent : BC.surface,
+        color: q > 0 ? HC.fondAccent : HC.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: q > 0 ? BC.accent : BC.bordure),
+        border: Border.all(color: q > 0 ? HC.accent : HC.bordure),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
@@ -172,7 +172,7 @@ class _CommandeState extends State<Commande> {
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('${p['name']}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                Text(fcfa(prix), style: const TextStyle(color: BC.gris)),
+                Text(fcfa(prix), style: const TextStyle(color: HC.gris)),
               ]),
             ),
             if (q > 0) ...[
@@ -183,7 +183,7 @@ class _CommandeState extends State<Commande> {
               SizedBox(
                 width: 36,
                 child: Text('$q', textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: BC.accent)),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: HC.accent)),
               ),
             ],
             IconButton.filled(
