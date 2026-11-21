@@ -1,0 +1,48 @@
+# =====================================================================
+# BARIO · Regles de synchronisation PowerSync (Sync Streams)
+# A coller dans le tableau de bord PowerSync > Sync Streams, puis "Deploy".
+#
+# Principe : chaque appareil ne recoit QUE les donnees de SON club
+# (bucket par club_id). L'isolation entre clubs est donc totale.
+# A l'interieur d'un club, la distinction gerant / serveuse (une serveuse
+# ne voit que ses tables) est appliquee par l'application et par la
+# securite par ligne cote serveur.
+#
+# Les prix d'achat et les couts ne sont JAMAIS synchronises : les colonnes
+# purchase_price (products), cost_price (tab_items, stock_entries) sont
+# volontairement absentes des requetes ci-dessous. Le patron les consulte
+# via les rapports (fonctions serveur).
+# =====================================================================
+
+config:
+  edition: 3
+
+streams:
+  club:
+    auto_subscribe: true
+    with:
+      mon_club: SELECT club_id FROM members WHERE user_id = auth.user_id() AND active = true
+    queries:
+      - SELECT * FROM clubs WHERE id IN mon_club
+      - SELECT * FROM settings WHERE club_id IN mon_club
+      - SELECT id, club_id, user_id, login, role, display_name, phone, active, created_at
+          FROM members WHERE club_id IN mon_club
+      - SELECT id, club_id, name, zone, is_fixed, active, sort_order, created_by, created_at, current_tab_id
+          FROM club_tables WHERE club_id IN mon_club
+      - SELECT * FROM categories WHERE club_id IN mon_club
+      - SELECT id, club_id, category_id, name, sale_price, track_stock, min_stock, active,
+               sort_order, created_at, updated_at
+          FROM products WHERE club_id IN mon_club
+      - SELECT * FROM nights WHERE club_id IN mon_club
+      - SELECT * FROM tabs WHERE club_id IN mon_club
+      - SELECT id, club_id, tab_id, product_id, product_name, quantity, unit_price, status,
+               requested_at, requested_by, served_by, served_at, removed_by, removed_at, removed_reason
+          FROM tab_items WHERE club_id IN mon_club
+      - SELECT * FROM payments WHERE club_id IN mon_club
+      - SELECT * FROM cash_movements WHERE club_id IN mon_club
+      - SELECT * FROM expenses WHERE club_id IN mon_club
+      - SELECT * FROM suppliers WHERE club_id IN mon_club
+      - SELECT * FROM inventories WHERE club_id IN mon_club
+      - SELECT id, club_id, product_id, quantity, supplier_id, note, member_id, created_at
+          FROM stock_entries WHERE club_id IN mon_club
+      - SELECT * FROM stock_movements WHERE club_id IN mon_club
