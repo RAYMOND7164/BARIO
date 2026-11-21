@@ -7,7 +7,7 @@ class BarioConfig {
   static const supabasePublishableKey = 'sb_publishable_kp_NEnnsoTfX5nMPur8qsg_b70jUxNg';
 
   /// Adresse de l'instance PowerSync (synchronisation hors ligne).
-  static const powersyncUrl = 'A_REMPLIR_URL_POWERSYNC';
+  static const powersyncUrl = 'https://6b0147e0d1877570e4e6a212.powersync.journeyapps.com';
 
   /// Bario sert plusieurs clubs. L'équipe se connecte avec le CODE DU CLUB
   /// (mémorisé une fois sur l'appareil) + un identifiant. Derrière, Supabase
